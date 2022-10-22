@@ -40,6 +40,10 @@ small,
   font-size: 85%;
 }
 
+.fs-6 { 
+  font-size: 1.125rem !important;
+}
+
 .fs-7 { 
   font-size: 0.875rem;
 }
@@ -48,11 +52,34 @@ small,
   font-weight: 500;
 }
 
+p { 
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.list-decimal { 
+  list-style: decimal;
+  padding-left: 0.9375rem;
+
+  li::marker { 
+    color: $gray;
+  }
+
+}
+
 // remove focus
 
 button:focus,
 .btn:focus {
   box-shadow: unset;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-outline-primary:hover { 
+  color: $white !important;
 }
 
 // line-height
@@ -70,10 +97,85 @@ button:focus,
   }
 }
 
+.link { 
+  color: #CDCCCA;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active { 
+    color: $primary !important;
+    border: unset;
+    outline: unset;
+  }
+}
+
 // backgrounds
 
 .bg-cover { 
  background-position: center;
  background-size: cover;
  background-blend-mode: overlay;  
+}
+
+// sidebar
+
+.sidebar { 
+  &-link { 
+    text-decoration: unset;
+    padding: 0.625rem 1rem;
+
+    font-weight: 500;
+    font-size: 1rem;
+
+    svg { 
+      color: $gray;
+     }
+
+     span { 
+      color: $gray;
+    }
+  
+    &.active { 
+      svg { 
+       color: $primary;
+      }
+      span { 
+        color: $body-color;
+      }
+    }
+
+    &:hover { 
+      svg { 
+        color: $primary;
+       }
+       span { 
+         color: $primary;
+       }
+    }
+
+  }
+}
+
+
+// apexcharts
+
+.apexcharts-legend-marker { 
+  height: 0.75rem !important;
+  width: 0.75rem !important;
+}
+
+.bars .apexcharts-legend-text,
+.bars .apexcharts-text { 
+
+  fill: $gray !important;
+  color: $gray !important;
+  font-size: 0.75rem !important;
+}
+
+// date picker
+
+.rdrCalendarWrapper,
+.rdrMonth { 
+  width: 100%;
 }

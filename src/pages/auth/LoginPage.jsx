@@ -8,13 +8,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate('DashboardPage');
+    navigate('dashboard');
   };
 
   return (
     <main>
       <section
-        className='min-vh-100 bg-cover py-5'
+        className='min-vh-100 bg-cover py-5 d-flex align-items-center'
         style={{ backgroundImage: `url(/assets/sign-in-hero.jpg)` }}
       >
         <div className='container'>
@@ -27,7 +27,7 @@ const LoginPage = () => {
               </div>
             </li>
             <li className='order-first order-lg-last'>
-              <div className='bg-light rounded-4 p-3'>
+              <div className='bg-light rounded-4 shadow p-3'>
                 <div className='bg-white p-4 p-lg-5'>
                   <Logo className='mx-auto mb-4' />
                   <h4 className='mb-4 fw-bold text-center'>
