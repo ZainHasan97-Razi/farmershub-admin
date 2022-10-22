@@ -4,7 +4,7 @@ import { SearchIcon } from '../icons/icons';
 
 const SearchField = () => {
   return (
-    <div className='bg-light rounded-2 py-1'>
+    <div className='bg-light rounded-2 py-1 flex-fill'>
       <form noValidate>
         <InputGroup>
           <InputGroup.Text className='bg-light border-0'>

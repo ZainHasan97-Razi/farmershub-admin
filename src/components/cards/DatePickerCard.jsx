@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
 import { DateRange } from 'react-date-range';
 import { CalendarIcon } from '../icons/icons';
+import PrimaryModal from '../modals/PrimaryModal';
 
 const DatePickerCard = ({ isPlaceholder }) => {
   const [showDate, setShowDate] = useState(false);
@@ -22,7 +22,7 @@ const DatePickerCard = ({ isPlaceholder }) => {
         <button
           onClick={handleShow}
           type='button'
-          className='h-100 btn btn-light text-dark text-opacity-75 py-2 px-3 rounded d-flex align-items-center gap-2'
+          className='w-100 h-100 btn btn-light text-dark text-opacity-75 py-2 px-3 rounded d-flex align-items-center gap-2'
         >
           <CalendarIcon
             className={`${isPlaceholder && 'text-body text-opacity-50'}`}
@@ -39,41 +39,33 @@ const DatePickerCard = ({ isPlaceholder }) => {
         </button>
       </div>
 
-      <Modal centered show={showDate} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Choose date</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className='text-center'>
-            <DateRange
-              editableDateInputs={true}
-              onChange={(item) => setDate([item.selection])}
-              moveRangeOnFirstSelection={false}
-              ranges={date}
-            />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant='outline-primary'
+      <PrimaryModal show={showDate} onHide={handleClose}>
+        <h4 className='mb-2 fw-bold text-capitalize'>Choose date</h4>
+        <div className='text-center'>
+          <DateRange
+            editableDateInputs={true}
+            onChange={(item) => setDate([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={date}
+          />
+        </div>
+        <div className='pt-4 d-flex gap-3'>
+          <button
+            type='button'
             onClick={handleClose}
-            className='px-4'
+            className='flex-fill btn btn-gray text-white rounded-1 px-2 py-3'
           >
-            Close
-          </Button>
-          <Button variant='primary' onClick={handleClose} className='px-4'>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* <div
-        onClick={() => setShowDate(false)}
-        className={`position-fixed h-100 w-100 bg-black bg-opacity-10 top-0 start-0 ${
-          showDate ? 'd-block' : 'd-none'
-        }`}
-        style={{ zIndex: 30 }}
-      /> */}
+            <span className='fw-semibold'>Cancel</span>
+          </button>
+          <button
+            type='button'
+            onClick={handleClose}
+            className='flex-fill btn btn-primary rounded-1 px-2 py-3'
+          >
+            <span className='fw-semibold'>Save</span>
+          </button>
+        </div>
+      </PrimaryModal>
     </>
   );
 };

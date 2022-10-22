@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import DatePickerCard from '../cards/DatePickerCard';
-import { DeleteIcon, EyeIcon } from '../icons/icons';
 import SearchField from '../inputs/SearchField';
+import DeleteModal from '../modals/DeleteModal';
+import ViewModal from '../modals/ViewModal';
 
 const UserManagementTable = () => {
   const tableHeaderList = [
@@ -87,24 +88,8 @@ const UserManagementTable = () => {
               </td>
               <td className='p-4 text-center'>
                 <div className='d-flex align-items-center justify-content-center gap-2'>
-                  <button
-                    type='button'
-                    className='btn btn-sm bg-danger bg-opacity-10 text-danger d-flex align-items-center gap-2'
-                  >
-                    <span>
-                      <DeleteIcon size='1rem' />
-                    </span>
-                    <span className='fw-normal'>Delete</span>
-                  </button>
-                  <button
-                    type='button'
-                    className='btn btn-sm bg-secondary bg-opacity-10 text-secondary d-flex align-items-center gap-2'
-                  >
-                    <span>
-                      <EyeIcon size='1rem' />
-                    </span>
-                    <span className='fw-normal'>View</span>
-                  </button>
+                  <DeleteModal isText />
+                  <ViewModal isText isAds data={data} />
                 </div>
               </td>
             </tr>
