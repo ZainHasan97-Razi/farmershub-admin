@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { EyeIcon } from '../icons/icons';
+import AdsModal from './AdsModal';
+import AppointmentsModal from './AppointmentsModal';
 import PrimaryModal from './PrimaryModal';
 
 const ViewModal = ({ data, ...props }) => {
@@ -7,6 +9,14 @@ const ViewModal = ({ data, ...props }) => {
 
   return (
     <>
+      <AppointmentsModal
+        data={data}
+        show={show === 'appointments'}
+        onHide={() => setShow('')}
+      />
+
+      <AdsModal data={data} show={show === 'ads'} onHide={() => setShow('')} />
+
       <PrimaryModal
         show={show === 'View Appointments'}
         onHide={() => setShow('')}
@@ -26,16 +36,24 @@ const ViewModal = ({ data, ...props }) => {
         </div>
 
         <div className='pt-5 d-flex gap-3'>
-          <button
-            type='button'
-            onClick={() => setShow('')}
-            className='flex-fill btn btn-primary text-white rounded-1 px-2 py-3'
-          >
-            <span className='fw-semibold'>
-              {props.isAds && 'View Ads posted'}
-              {props.isAppointments && 'View Appointments'}
-            </span>
-          </button>
+          {props.isAds && (
+            <button
+              type='button'
+              onClick={() => setShow('ads')}
+              className='flex-fill btn btn-primary text-white rounded-1 px-2 py-3'
+            >
+              <span className='fw-semibold'>View Ads posted</span>
+            </button>
+          )}
+          {props.isAppointments && (
+            <button
+              type='button'
+              onClick={() => setShow('appointments')}
+              className='flex-fill btn btn-primary text-white rounded-1 px-2 py-3'
+            >
+              <span className='fw-semibold'>View Appointments</span>
+            </button>
+          )}
         </div>
       </PrimaryModal>
 

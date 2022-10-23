@@ -24,7 +24,11 @@ const PrimaryModal = ({ show, onHide, children, ...props }) => {
           />
         </button>
       </div>
-      <Modal.Body className='bg-white rounded-2'>{children}</Modal.Body>
+      <Modal.Body
+        className={`${props.isBlack ? 'bg-black' : 'bg-white'} rounded-2`}
+      >
+        {children}
+      </Modal.Body>
     </Modal>
   );
 };

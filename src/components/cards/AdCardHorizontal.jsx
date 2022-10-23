@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { PlayIcon } from '../icons/icons';
+import { PlayIcon, ClockIcon, LocationIcon } from '../icons/icons';
 import GalleryModal from '../modals/GalleryModal';
 
-const AdCard = ({ data, gallery }) => {
+const AdCardHorizontal = ({ data, gallery }) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -13,13 +13,13 @@ const AdCard = ({ data, gallery }) => {
         onHide={() => setShow(false)}
       />
 
-      <div className='ad-card bg-light rounded-3 shadow-sm p-3'>
+      <div className='ad-card bg-light rounded-3 shadow-sm p-3 d-lg-flex gap-3'>
         {/* Ads overlay */}
         <div
-          className='bg-cover rounded-3 bg-dark bg-opacity-25'
+          className='bg-cover rounded-3 bg-dark bg-opacity-25 px-0 col-lg-4'
           style={{
             backgroundImage: 'url(/assets/card-image-0.jpg)',
-            height: '12.5rem',
+            height: '11.25rem',
           }}
         >
           <div
@@ -33,6 +33,7 @@ const AdCard = ({ data, gallery }) => {
                 {data.badge}
               </span>
             )}
+
             <button
               type='button'
               className='btn p-0 link my-auto'
@@ -45,20 +46,32 @@ const AdCard = ({ data, gallery }) => {
         </div>
         {/* /Ads overlay */}
         {/* Ads body */}
-        <ul className='nav flex-column gap-3 mt-3'>
+        <ul className='nav flex-column gap-2 mt-3'>
           <li>
             <div className='d-flex align-items-center gap-2'>
-              <h5 className='mb-0 fw-bold me-auto'>RS 73,000</h5>
-              <span className='fs-7 fw-500 text-gray text-capitalize'>
-                Negotiable
-              </span>
+              <div className='d-flex align-items-center flex-wrap justify-content-start gap-2 me-auto'>
+                <h6 className='mb-0 fw-bold me-auto'>RS 73,000</h6>
+                <span className='fs-7 fw-500 text-gray text-capitalize'>
+                  Negotiable
+                </span>
+              </div>
+              <div className='d-flex align-items-center flex-wrap justify-content-end gap-2'>
+                <div className='text-gray fs-7'>
+                  <ClockIcon className='me-1' />
+                  <span className='small'>{data.postTime}</span>
+                </div>
+                <div className='text-gray fs-7'>
+                  <LocationIcon className='me-1' />
+                  <span className='small'>{data.location}</span>
+                </div>
+              </div>
             </div>
           </li>
-          <li>
+          <li className='px-0 col-lg-9'>
             <h6 className='mb-0 fw-500'>{data.title}</h6>
           </li>
-          <li>
-            <p className='mb-0 text-gray'>
+          <li className='px-0 col-lg-9'>
+            <p className='mb-0 text-gray fs-7'>
               This is a Murrah cross buffalo. This Murrah cross buffalo is in
               second breeding and now gives 14 liters of milk.
             </p>
@@ -70,4 +83,4 @@ const AdCard = ({ data, gallery }) => {
   );
 };
 
-export default AdCard;
+export default AdCardHorizontal;

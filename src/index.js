@@ -4,6 +4,8 @@ import App from './App';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/thumbs';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 

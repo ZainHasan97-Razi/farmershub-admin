@@ -48,6 +48,10 @@ small,
   font-size: 0.875rem;
 }
 
+.fs-8 { 
+  font-size: 0.75rem;
+}
+
 .fw-500 { 
   font-weight: 500;
 }
@@ -65,6 +69,27 @@ p {
     color: $gray;
   }
 
+}
+
+.object-contain { 
+  object-fit: contain;
+}
+
+.object-cover { 
+  object-fit: cover;
+}
+
+.overlay-btn-play { 
+    filter: invert(1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.form-control:focus { 
+  box-shadow: unset;
 }
 
 // remove focus
@@ -179,3 +204,60 @@ button:focus,
 .rdrMonth { 
   width: 100%;
 }
+
+// gallery
+
+.gallery-small { 
+
+
+  &-item--small { 
+    &:hover,
+    &:focus,
+    &:active,
+    &.active { 
+      box-shadow: 0 0 0 0.25rem $primary;
+    }
+  }
+  
+  .swiper-wrapper { 
+    justify-content: center;
+
+    .swiper-slide { 
+      height: 8.75rem !important;
+      width: 8.75rem !important;
+
+      &-thumb-active { 
+        box-shadow: 0 0 0 0.25rem $primary;
+        border-radius: 0.5rem;
+      }
+    }
+    
+  }
+}
+
+// cards 
+
+.ad-card-overlay { 
+     position: relative;
+  &::after { 
+     content: '';
+     background-color: $warning;
+     height: 100%;
+     width: 0;
+     display: flex;
+     position: absolute;
+     top: 0;
+     left: 0;
+     transition: all 0.3s ease;
+  }
+    
+  &.active { 
+    &::after { 
+      width: 0.25rem;
+      transition: all 0.3s ease;
+    }
+    }
+}
+
+
+

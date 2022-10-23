@@ -49,11 +49,11 @@ const UserManagementTable = () => {
 
   return (
     <div className='bg-white rounded shadow-sm'>
-      <div className='p-4 d-flex flex-wrap align-items-center gap-3'>
-        <div className='me-auto'>
+      <div className='p-4 d-flex flex-wrap align-items-stretch gap-3'>
+        <div className='me-auto flex-fill flex-md-grow-0'>
           <SearchField />
         </div>
-        <div>
+        <div className='flex-fill flex-md-grow-0'>
           <DatePickerCard isPlaceholder />
         </div>
       </div>

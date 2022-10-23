@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import DatePickerCard from '../cards/DatePickerCard';
 import SearchField from '../inputs/SearchField';
+import AddVetModal from '../modals/AddVetModal';
 import DeleteModal from '../modals/DeleteModal';
 import ViewModal from '../modals/ViewModal';
 
@@ -50,17 +51,12 @@ const VetManagementTable = () => {
   return (
     <div className='bg-white rounded shadow-sm'>
       <div className='p-4 d-flex flex-wrap align-items-stretch gap-3'>
-        <div className='me-auto'>
+        <div className='me-auto flex-fill flex-md-grow-0'>
           <SearchField />
         </div>
-        <div className='d-flex flex-column flex-sm-row align-items-sm-center gap-2'>
+        <div className='d-flex flex-column flex-sm-row align-items-sm-center gap-3 flex-fill flex-md-grow-0'>
           <DatePickerCard isPlaceholder />
-          <button
-            type='button'
-            className='btn btn-sm btn-primary py-2 px-4 rounded-2 text-capitalize'
-          >
-            Add Vet
-          </button>
+          <AddVetModal />
         </div>
       </div>
 

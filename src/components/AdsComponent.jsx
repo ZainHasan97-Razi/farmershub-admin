@@ -2,7 +2,7 @@ import React from 'react';
 import AdCard from './cards/AdCard';
 import { DotsIcon } from './icons/icons';
 
-const AdsComponent = ({ title, list }) => {
+const AdsComponent = ({ title, list, gallery }) => {
   return (
     <div>
       {/* Ads Header */}
@@ -17,7 +17,7 @@ const AdsComponent = ({ title, list }) => {
       {/* /Ads Header */}
       <ul className='nav flex-column gap-3'>
         {list.map((data) => (
-          <AdCard key={data.name} data={data} />
+          <AdCard gallery={gallery} key={data.title} data={data} />
         ))}
       </ul>
     </div>
