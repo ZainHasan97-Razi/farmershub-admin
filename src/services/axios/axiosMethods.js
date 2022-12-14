@@ -1,6 +1,6 @@
 import axios from "./axiosInstance";
 
-export async function getRequest(URL, params, onDownload) {
+export async function getRequest(URL, params) {
   return axios.get(`${URL}`, {
     params: params,
   });

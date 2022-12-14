@@ -25,9 +25,10 @@ const NETWORK_CRASH = 502;
 // REQUEST INTERCEPTOR
 axiosInstance.interceptors.request.use(
   (request) => {
-    request.headers.Authorization = `Bearer ${getLocalData(
-      LOCAL_STORAGE_KEYS.authToken
-    )}`;
+    request.headers.Authorization = `Bearer ${
+      getLocalData(LOCAL_STORAGE_KEYS.authToken) || ""
+    }`;
+
     return request;
   },
   function (error) {

@@ -7,7 +7,7 @@ const notfiFail = (msg) => toast.error(msg);
 function Toast() {
   return (
     <ToastContainer
-      position="top-left"
+      position="top-right"
       theme="dark"
       autoClose={5000}
       hideProgressBar={false}

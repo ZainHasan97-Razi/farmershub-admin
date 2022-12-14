@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
@@ -34,61 +34,58 @@ body {
   }
 }
 
-
 small,
 .small {
   font-size: 85%;
 }
 
-.fs-6 { 
+.fs-6 {
   font-size: 1.125rem !important;
 }
 
-.fs-7 { 
+.fs-7 {
   font-size: 0.875rem;
 }
 
-.fs-8 { 
+.fs-8 {
   font-size: 0.75rem;
 }
 
-.fw-500 { 
+.fw-500 {
   font-weight: 500;
 }
 
-p { 
+p {
   font-size: 1rem;
   font-weight: 400;
 }
 
-.list-decimal { 
+.list-decimal {
   list-style: decimal;
   padding-left: 0.9375rem;
 
-  li::marker { 
+  li::marker {
     color: $gray;
   }
-
 }
 
-.object-contain { 
+.object-contain {
   object-fit: contain;
 }
 
-.object-cover { 
+.object-cover {
   object-fit: cover;
 }
 
-.overlay-btn-play { 
-    filter: invert(1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+.overlay-btn-play {
+  filter: invert(1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.form-control:focus { 
+.form-control:focus {
   box-shadow: unset;
 }
 
@@ -103,7 +100,7 @@ button:focus,
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-outline-primary:hover { 
+.btn-outline-primary:hover {
   color: $white !important;
 }
 
@@ -116,19 +113,19 @@ button:focus,
 // buttons
 
 .btn {
-    position: relative;
+  position: relative;
   &:active {
     top: 1px;
   }
 }
 
-.link { 
-  color: #CDCCCA;
+.link {
+  color: #cdccca;
 
   &:hover,
   &:focus,
   &:active,
-  &.active { 
+  &.active {
     color: $primary !important;
     border: unset;
     outline: unset;
@@ -137,62 +134,59 @@ button:focus,
 
 // backgrounds
 
-.bg-cover { 
- background-position: center;
- background-size: cover;
- background-blend-mode: overlay;  
+.bg-cover {
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: overlay;
 }
 
 // sidebar
 
-.sidebar { 
-  &-link { 
+.sidebar {
+  &-link {
     text-decoration: unset;
     padding: 0.625rem 1rem;
 
     font-weight: 500;
     font-size: 1rem;
 
-    svg { 
-      color: $gray;
-     }
-
-     span { 
+    svg {
       color: $gray;
     }
-  
-    &.active { 
-      svg { 
-       color: $primary;
+
+    span {
+      color: $gray;
+    }
+
+    &.active {
+      svg {
+        color: $primary;
       }
-      span { 
+      span {
         color: $body-color;
       }
     }
 
-    &:hover { 
-      svg { 
+    &:hover {
+      svg {
         color: $primary;
-       }
-       span { 
-         color: $primary;
-       }
+      }
+      span {
+        color: $primary;
+      }
     }
-
   }
 }
 
-
 // apexcharts
 
-.apexcharts-legend-marker { 
+.apexcharts-legend-marker {
   height: 0.75rem !important;
   width: 0.75rem !important;
 }
 
 .bars .apexcharts-legend-text,
-.bars .apexcharts-text { 
-
+.bars .apexcharts-text {
   fill: $gray !important;
   color: $gray !important;
   font-size: 0.75rem !important;
@@ -201,63 +195,62 @@ button:focus,
 // date picker
 
 .rdrCalendarWrapper,
-.rdrMonth { 
+.rdrMonth {
   width: 100%;
 }
 
 // gallery
 
-.gallery-small { 
-
-
-  &-item--small { 
+.gallery-small {
+  &-item--small {
     &:hover,
     &:focus,
     &:active,
-    &.active { 
+    &.active {
       box-shadow: 0 0 0 0.25rem $primary;
     }
   }
-  
-  .swiper-wrapper { 
+
+  .swiper-wrapper {
     justify-content: center;
 
-    .swiper-slide { 
+    .swiper-slide {
       height: 8.75rem !important;
       width: 8.75rem !important;
 
-      &-thumb-active { 
+      &-thumb-active {
         box-shadow: 0 0 0 0.25rem $primary;
         border-radius: 0.5rem;
       }
     }
-    
   }
 }
 
-// cards 
+// cards
 
-.ad-card-overlay { 
-     position: relative;
-  &::after { 
-     content: '';
-     background-color: $warning;
-     height: 100%;
-     width: 0;
-     display: flex;
-     position: absolute;
-     top: 0;
-     left: 0;
-     transition: all 0.3s ease;
+.ad-card-overlay {
+  position: relative;
+  &::after {
+    content: "";
+    background-color: $warning;
+    height: 100%;
+    width: 0;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease;
   }
-    
-  &.active { 
-    &::after { 
+
+  &.active {
+    &::after {
       width: 0.25rem;
       transition: all 0.3s ease;
     }
-    }
+  }
 }
 
-
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
