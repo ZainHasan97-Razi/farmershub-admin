@@ -9,7 +9,14 @@ import SearchField from "../inputs/SearchField";
 import DeleteModal from "../modals/DeleteModal";
 import ViewModal from "../modals/ViewModal";
 
-const UserManagementTable = ({ users }) => {
+const UserManagementTable = ({
+  users,
+  setfilterUsers,
+  setDate,
+  date,
+  setOffset,
+  setUsers,
+}) => {
   const tableHeaderList = [
     { heading: "phone #" },
     { heading: "Name" },
@@ -25,7 +32,14 @@ const UserManagementTable = ({ users }) => {
           <SearchField />
         </div>
         <div className="flex-fill flex-md-grow-0">
-          <DatePickerCard isPlaceholder />
+          <DatePickerCard
+            isPlaceholder
+            setfilterUsers={setfilterUsers}
+            setDate={setDate}
+            date={date}
+            setOffset={setOffset}
+            setUsers={setUsers}
+          />
         </div>
       </div>
 
@@ -44,7 +58,7 @@ const UserManagementTable = ({ users }) => {
         </thead>
         <tbody>
           {users.map((data) => (
-            <tr key={data.name} className="border-bottom">
+            <tr key={data._id} className="border-bottom">
               <td className="p-4 fw-semibold h6 mb-0 text-center text-nowrap text-dark text-opacity-75">
                 {data?.phone_number || "--"}
               </td>

@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import { CalendarIcon } from '../icons/icons';
-import PrimaryModal from '../modals/PrimaryModal';
+import React, { useState } from "react";
+import { DateRange } from "react-date-range";
+import { CalendarIcon } from "../icons/icons";
+import PrimaryModal from "../modals/PrimaryModal";
 
-const DatePickerCard = ({ isPlaceholder }) => {
+const DatePickerCard = ({
+  isPlaceholder,
+  setfilterUsers,
+  setDate,
+  date,
+  setOffset,
+  setUsers,
+}) => {
   const [showDate, setShowDate] = useState(false);
 
-  const handleClose = () => setShowDate(false);
-  const handleShow = () => setShowDate(true);
+  const handleClose = () => {
+    setShowDate(false);
+    setfilterUsers(false);
+  };
+  const handleShow = () => {
+    setShowDate(true);
+    setfilterUsers(false);
+  };
 
-  const [date, setDate] = useState([
-    {
+  const clearDate = () => {
+    setDate({
       startDate: new Date(),
       endDate: null,
-      key: 'selection',
-    },
-  ]);
+      key: "selection",
+    });
+  };
+
+  const applyFilter = () => {
+    setfilterUsers(true);
+    setShowDate(false);
+    setOffset(0);
+    setUsers([]);
+  };
+
   return (
     <>
-      <div className='position-relative h-100'>
+      <div className="position-relative h-100">
         <button
           onClick={handleShow}
-          type='button'
-          className='w-100 h-100 btn btn-light text-dark text-opacity-75 py-2 px-3 rounded d-flex align-items-center gap-2'
+          type="button"
+          className="w-100 h-100 btn btn-light text-dark text-opacity-75 py-2 px-3 rounded d-flex align-items-center gap-2"
         >
           <CalendarIcon
-            className={`${isPlaceholder && 'text-body text-opacity-50'}`}
+            className={`${isPlaceholder && "text-body text-opacity-50"}`}
           />
-          <span className='fs-7 fw-semibold'>
+          <span className="fs-7 fw-semibold">
             {isPlaceholder ? (
-              <span className='text-body text-opacity-50 fw-500'>
+              <span className="text-body text-opacity-50 fw-500">
                 Choose date range
               </span>
             ) : (
@@ -40,29 +61,29 @@ const DatePickerCard = ({ isPlaceholder }) => {
       </div>
 
       <PrimaryModal show={showDate} onHide={handleClose}>
-        <h4 className='mb-2 fw-bold text-capitalize'>Choose date</h4>
-        <div className='text-center'>
+        <h4 className="mb-2 fw-bold text-capitalize">Choose date</h4>
+        <div className="text-center">
           <DateRange
             editableDateInputs={true}
-            onChange={(item) => setDate([item.selection])}
+            onChange={(item) => setDate(item.selection)}
             moveRangeOnFirstSelection={false}
-            ranges={date}
+            ranges={[date]}
           />
         </div>
-        <div className='pt-4 d-flex gap-3'>
+        <div className="pt-4 d-flex gap-3">
           <button
-            type='button'
-            onClick={handleClose}
-            className='flex-fill btn btn-gray text-white rounded-1 px-2 py-3'
+            type="button"
+            onClick={clearDate}
+            className="flex-fill btn btn-gray text-white rounded-1 px-2 py-3"
           >
-            <span className='fw-semibold'>Cancel</span>
+            <span className="fw-semibold">Clear</span>
           </button>
           <button
-            type='button'
-            onClick={handleClose}
-            className='flex-fill btn btn-primary rounded-1 px-2 py-3'
+            type="button"
+            onClick={applyFilter}
+            className="flex-fill btn btn-primary rounded-1 px-2 py-3"
           >
-            <span className='fw-semibold'>Save</span>
+            <span className="fw-semibold">Save</span>
           </button>
         </div>
       </PrimaryModal>

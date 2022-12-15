@@ -9,6 +9,7 @@ import UserManagementTable from "../../components/tables/UserManagementTable";
 import { apiRoutes } from "../../lib/contants";
 import { onBottom } from "../../lib/helper/detectScroll";
 import { getRequest } from "../../services/axios/axiosMethods";
+import { formatDate } from "../../lib/helper/helper";
 
 const UserManagementPage = () => {
   const limit = 10;
@@ -16,6 +17,12 @@ const UserManagementPage = () => {
   const [completed, setCompleted] = useState(false);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filterUsers, setfilterUsers] = useState(false);
+  const [date, setDate] = useState({
+    startDate: new Date(),
+    endDate: null,
+    key: "selection",
+  });
 
   // increment offset at the end
   const scrollToEnd = () => {
@@ -35,8 +42,14 @@ const UserManagementPage = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
+      const startDate = formatDate(date.startDate);
+      const maxDate = formatDate(date.endDate);
+      console.log(startDate, maxDate);
+
       const response = await getRequest(
-        `${apiRoutes.fetchUser}?limit=${limit}&offset=${offset}`
+        `${apiRoutes.fetchUser}?limit=${limit}&offset=${offset}${
+          filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""
+        }`
       );
       setCompleted(response.length !== 10);
       setUsers([...users, ...response.users]);
@@ -48,9 +61,12 @@ const UserManagementPage = () => {
   };
 
   useEffect(() => {
+    // if (!filterUsers) {
+    //   return;
+    // }
     fetchUsers();
     // eslint-disable-next-line
-  }, [offset]);
+  }, [offset, filterUsers]);
 
   return (
     <main className="py-4 px-2 px-sm-4">
@@ -60,7 +76,14 @@ const UserManagementPage = () => {
       </section>
       {/* Header */}
       <section>
-        <UserManagementTable users={users} />
+        <UserManagementTable
+          users={users}
+          setfilterUsers={setfilterUsers}
+          setDate={setDate}
+          date={date}
+          setOffset={setOffset}
+          setUsers={setUsers}
+        />
       </section>
     </main>
   );
