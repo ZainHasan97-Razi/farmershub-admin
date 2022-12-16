@@ -12,7 +12,7 @@ import { getRequest } from "../../services/axios/axiosMethods";
 import { formatDate } from "../../lib/helper/helper";
 
 const UserManagementPage = () => {
-  const limit = 10;
+  const limit = 20;
   const [offset, setOffset] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [users, setUsers] = useState([]);
@@ -44,7 +44,6 @@ const UserManagementPage = () => {
       setLoading(true);
       const startDate = formatDate(date.startDate);
       const maxDate = formatDate(date.endDate);
-      console.log(startDate, maxDate);
 
       const response = await getRequest(
         `${apiRoutes.fetchUser}?limit=${limit}&offset=${offset}${

@@ -73,7 +73,7 @@ const UserManagementTable = ({
               </td>
               <td className="p-4 text-center">
                 <div className="d-flex align-items-center justify-content-center gap-2">
-                  <DeleteModal isText />
+                  <DeleteModal isText data={data} setUsers={setUsers} />
                   <ViewModal isText isAds data={data} />
                 </div>
               </td>
