@@ -50,7 +50,7 @@ const UserManagementPage = () => {
           filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""
         }`
       );
-      setCompleted(response.length !== 10);
+      setCompleted(response.length < limit);
       setUsers([...users, ...response.users]);
       response && setLoading(false);
       // setOffset(response.next_offset);

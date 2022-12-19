@@ -3,6 +3,8 @@ export const apiRoutes = {
   verifyOtp: "users/verifyOtp",
   fetchUser: "users/list",
   deleteUser: "users/",
+  fetchAds: "post/admin",
+  changeAdStatus: "post/status",
 };
 
 export const routes = {

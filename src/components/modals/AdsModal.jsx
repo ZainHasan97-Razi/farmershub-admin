@@ -27,13 +27,17 @@ const AdsModal = ({ data, show, onHide }) => {
         className="nav flex-nowrap flex-column gap-3 mt-4 overflow-auto pe-2"
         style={{ maxHeight: "25rem" }}
       >
-        {data?.posts?.map((data) => (
-          <AdCardHorizontal
-            gallery={gallery}
-            key={data.title}
-            cardInfo={data}
-          />
-        ))}
+        {data.posts.length > 0 ? (
+          data?.posts?.map((data) => (
+            <AdCardHorizontal
+              gallery={gallery}
+              key={data.title}
+              cardInfo={data}
+            />
+          ))
+        ) : (
+          <h6>No ad posted by this user</h6>
+        )}
       </ul>
     </PrimaryModal>
   );
