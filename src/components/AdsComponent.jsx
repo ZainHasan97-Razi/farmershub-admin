@@ -9,7 +9,6 @@ const AdsComponent = ({
   changeAdStatus,
   statusUpdating,
 }) => {
-  console.log("list", list);
   return (
     <div>
       {/* Ads Header */}
