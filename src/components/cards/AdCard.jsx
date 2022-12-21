@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { Button, Image } from "react-bootstrap";
 import { placeHolder } from "../../lib/contants/assets";
 import { showCommaSeperated } from "../../lib/helper/helper";
-import { PlayIcon } from "../icons/icons";
 import GalleryModal from "../modals/GalleryModal";
 
-const AdCard = ({ cardInfo, status, handleStatus }) => {
+const AdCard = ({ cardInfo, status, changeAdStatus, statusUpdating }) => {
   const [show, setShow] = useState(false);
   const [gallery, setGallery] = useState([]);
 
@@ -92,6 +91,7 @@ const AdCard = ({ cardInfo, status, handleStatus }) => {
           style={{
             height: "12.5rem",
           }}
+          onClick={() => setShow(true)}
         >
           {cardInfo?.video_url !== "" ? (
             cardInfo?.video_thumbnail_url ? (
@@ -99,14 +99,9 @@ const AdCard = ({ cardInfo, status, handleStatus }) => {
                 variant="top"
                 src={cardInfo?.video_thumbnail_url || placeHolder}
                 alt={"cover-photo"}
-                // onClick={() => showCarousel(cardInfo)}
-                onClick={() => setShow(true)}
               />
             ) : (
-              <video
-                src={cardInfo?.video_url}
-                onClick={() => setShow(true)}
-              ></video>
+              <video src={cardInfo?.video_url}></video>
             )
           ) : (
             <Image
@@ -114,29 +109,8 @@ const AdCard = ({ cardInfo, status, handleStatus }) => {
               src={cardInfo?.images_url[0] || placeHolder}
               alt={"cover-photo"}
               className="card-img"
-              onClick={() => setShow(true)}
             />
           )}
-          <div
-            onClick={() => setShow(true)}
-            className={`h-100 d-flex flex-column justify-content-center align-items-center p-3 ad-card-overlay ${
-              cardInfo.badge && "active"
-            }`}
-          >
-            {cardInfo.badge && (
-              <span className="py-2 px-3 bg-white rounded-end text-warning text-uppercase fs-8 fw-bold position-absolute start-0 top-0 mt-3">
-                {cardInfo.badge}
-              </span>
-            )}
-            {/* <button
-              type="button"
-              className="btn p-0 link my-auto"
-              style={{ height: "3.375rem", width: "3.375rem" }}
-            >
-              <PlayIcon size="100%" />
-            </button>
-            <h6 className="mb-0 fw-500 fs-6 text-white">1 of 7</h6> */}
-          </div>
         </div>
         {/* /Ads overlay */}
         {/* Ads body */}
@@ -158,7 +132,12 @@ const AdCard = ({ cardInfo, status, handleStatus }) => {
 :}</Button> */}
           <div className="d-flex justify-content-between w-100">
             {status.map((item) => (
-              <Button onClick={() => handleStatus(item)}>{item}</Button>
+              <Button
+                onClick={() => changeAdStatus(cardInfo?.status, cardInfo, item)}
+                disabled={statusUpdating}
+              >
+                {item}
+              </Button>
             ))}
           </div>
           <li>

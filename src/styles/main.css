@@ -11375,4 +11375,12 @@ input[type=number]::-webkit-outer-spin-button {
   top: 32%;
   left: 39%;
   z-index: 28;
+}
+
+.back-btn {
+  height: 100%;
+}
+
+.text-left {
+  text-align: left;
 }/*# sourceMappingURL=main.css.map */

@@ -105,9 +105,10 @@ const LoginPage = () => {
                             src={
                               "	https://maweshi.co/static/media/arrow-left.a2563718f4104ee9b357c58c55f72c84.svg"
                             }
+                            className={"h-100"}
                           />
                         </Button>{" "}
-                        Enter otp
+                        <span>Enter otp</span>
                       </>
                     ) : (
                       "Login to Mall Maweshi"
@@ -143,7 +144,7 @@ const LoginPage = () => {
                         <>
                           <form onSubmit={handleSubmit} noValidate>
                             <ul className="nav flex-column gap-4">
-                              <li>
+                              <li className="text-left">
                                 <Form.Label
                                   htmlFor="email"
                                   className="fs-7 fw-500 ps-2"
@@ -169,7 +170,7 @@ const LoginPage = () => {
                                   </InputGroup>
                                 </div>
                               </li>
-                              <li>
+                              <li className="text-left">
                                 <Form.Label
                                   htmlFor="password"
                                   className="fs-7 fw-500 ps-2"

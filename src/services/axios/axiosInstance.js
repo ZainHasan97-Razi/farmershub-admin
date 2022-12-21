@@ -48,10 +48,9 @@ axiosInstance.interceptors.response.use(
     ) {
       clearAllLocalData();
     }
-    console.log("error?.response :>> ", error?.response);
 
     if (error.hasOwnProperty("response")) {
-      notfiFail(error?.response?.data?.message);
+      notfiFail(error?.response?.data?.message || error?.response?.statusText);
     } else {
       notfiFail(error?.message || error?.code || "Error");
     }

@@ -2,7 +2,14 @@ import React from "react";
 import AdCard from "./cards/AdCard";
 import { DotsIcon } from "./icons/icons";
 
-const AdsComponent = ({ title, list, gallery, status }) => {
+const AdsComponent = ({
+  title,
+  list,
+  status,
+  changeAdStatus,
+  statusUpdating,
+}) => {
+  console.log("list", list);
   return (
     <div>
       {/* Ads Header */}
@@ -16,8 +23,14 @@ const AdsComponent = ({ title, list, gallery, status }) => {
       </div>
       {/* /Ads Header */}
       <ul className="nav flex-column gap-3">
-        {list?.map((data) => (
-          <AdCard key={data._id} cardInfo={data} status={status} />
+        {list?.map((data, index) => (
+          <AdCard
+            key={index + Math.random()}
+            cardInfo={data}
+            status={status}
+            statusUpdating={statusUpdating}
+            changeAdStatus={changeAdStatus}
+          />
         ))}
       </ul>
     </div>
