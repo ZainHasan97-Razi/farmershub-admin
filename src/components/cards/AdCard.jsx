@@ -141,7 +141,7 @@ const AdCard = ({ cardInfo, status, changeAdStatus, statusUpdating }) => {
             ))}
           </div>
           <li>
-            <h6 className="mb-0 fw-500">{cardInfo.title}</h6>
+            <h6 className="mb-0 fw-500">{cardInfo?.user_id?.phone_number}</h6>
           </li>
           <li>
             <p className="mb-0 text-gray">{cardText()}</p>

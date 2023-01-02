@@ -17,6 +17,8 @@ const UserManagementPage = () => {
   const [completed, setCompleted] = useState(false);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
   const [filterUsers, setfilterUsers] = useState(false);
   const [date, setDate] = useState({
     startDate: new Date(),
@@ -46,14 +48,15 @@ const UserManagementPage = () => {
       const maxDate = formatDate(date.endDate);
 
       const response = await getRequest(
-        `${apiRoutes.fetchUser}?limit=${limit}&offset=${offset}${
+        `${
+          apiRoutes.fetchUser
+        }?limit=${limit}&offset=${offset}&searchText=${searchText}${
           filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""
         }`
       );
       setCompleted(response.length < limit);
       setUsers([...users, ...response.users]);
       response && setLoading(false);
-      // setOffset(response.next_offset);
     } catch (error) {
       setLoading(false);
     }
@@ -65,7 +68,17 @@ const UserManagementPage = () => {
     // }
     fetchUsers();
     // eslint-disable-next-line
-  }, [offset, filterUsers]);
+  }, [offset, filterUsers, date]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchUsers();
+
+      // Send Axios request here
+    }, 1000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchText]);
 
   return (
     <main className="py-4 px-2 px-sm-4">
@@ -82,6 +95,10 @@ const UserManagementPage = () => {
           date={date}
           setOffset={setOffset}
           setUsers={setUsers}
+          searchText={setSearchText}
+          setSearchText={setSearchText}
+          loading={loading}
+          setLoading={setLoading}
         />
       </section>
     </main>

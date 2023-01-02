@@ -5,14 +5,16 @@ import { deleteRequest } from "../../services/axios/axiosMethods";
 import { DeleteIcon } from "../icons/icons";
 import PrimaryModal from "./PrimaryModal";
 
-const DeleteModal = ({ isText, data, setUsers }) => {
+const DeleteModal = ({ isText, data, setUsers, vet = false }) => {
   const [show, setShow] = useState("");
   const [loading, setLoading] = useState(false);
 
   const deleteUser = async () => {
     try {
       setLoading(true);
-      const deleted = await deleteRequest(`${apiRoutes.deleteUser}${data._id}`);
+      const deleted = await deleteRequest(
+        `${vet ? apiRoutes.fetchVets : apiRoutes.deleteUser}${data._id}`
+      );
       setLoading(deleted ? false : true);
       setShow("");
       notifySuccess("User deleted successfully");

@@ -27,7 +27,7 @@ const AdsModal = ({ data, show, onHide }) => {
         className="nav flex-nowrap flex-column gap-3 mt-4 overflow-auto pe-2"
         style={{ maxHeight: "25rem" }}
       >
-        {data.posts.length > 0 ? (
+        {data?.posts?.length > 0 ? (
           data?.posts?.map((data) => (
             <AdCardHorizontal
               gallery={gallery}

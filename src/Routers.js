@@ -10,15 +10,15 @@ import VetManagementPage from "./pages/vet-management/VetManagementPage";
 
 const Routers = () => {
   const location = useLocation();
-  const isLogout = location.pathname === "/";
+  const isLogout = location.pathname === "/login";
 
   const routes = [
     {
       path: "/",
       element: <Layout isLogout={isLogout} />,
       children: [
-        { path: "/", element: <LoginPage /> },
-        { path: "dashboard", element: <DashboardPage /> },
+        { path: "/", element: <DashboardPage /> },
+        { path: "login", element: <LoginPage /> },
         { path: "user-management", element: <UserManagementPage /> },
         { path: "ads-management", element: <AdsManagementPage /> },
         { path: "vet-management", element: <VetManagementPage /> },

@@ -15,19 +15,16 @@ const DatePickerCard = ({
 
   const handleClose = () => {
     setShowDate(false);
-    setfilterUsers(false);
   };
   const handleShow = () => {
     setShowDate(true);
-    setfilterUsers(false);
   };
 
   const clearDate = () => {
-    setDate({
-      startDate: new Date(),
-      endDate: null,
-      key: "selection",
-    });
+    setOffset(0);
+    setShowDate(false);
+    setfilterUsers(null);
+    setUsers([]);
   };
 
   const applyFilter = () => {

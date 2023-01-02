@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { avatar } from "../../lib/contants/assets";
 import { EyeIcon } from "../icons/icons";
 import AdsModal from "./AdsModal";
@@ -7,7 +8,7 @@ import PrimaryModal from "./PrimaryModal";
 
 const ViewModal = ({ data, ...props }) => {
   const [show, setShow] = useState("");
-
+  console.log(data);
   return (
     <>
       <AppointmentsModal
@@ -22,8 +23,8 @@ const ViewModal = ({ data, ...props }) => {
         show={show === "View Appointments"}
         onHide={() => setShow("")}
       >
-        <h4 className="mb-2 fw-bold text-capitalize">{data.name}</h4>
-        <p className="mb-0 fs-7 text-gray">{data.phoneNumber}</p>
+        <h4 className="mb-2 fw-bold text-capitalize">{data?.name || "---"}</h4>
+        <p className="mb-0 fs-7 text-gray">{data?.phoneNumber || "---"}</p>
 
         <div
           className="mx-auto mt-4"
@@ -31,7 +32,7 @@ const ViewModal = ({ data, ...props }) => {
         >
           <img
             className="d-block h-100 w-100"
-            src={data?.picture || avatar}
+            src={data.picture || avatar}
             alt="..."
           />
         </div>

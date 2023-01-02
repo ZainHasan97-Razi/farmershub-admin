@@ -5,6 +5,8 @@ export const apiRoutes = {
   deleteUser: "users/",
   fetchAds: "post/admin",
   changeAdStatus: "post/status",
+  fetchVets: "vet",
+  uploadFile: "common/upload",
 };
 
 export const routes = {

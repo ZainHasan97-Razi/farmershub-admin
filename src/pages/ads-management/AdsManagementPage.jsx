@@ -28,6 +28,7 @@ const AdsManagementPage = () => {
   const [pendingAds, setPendingAds] = useState([]);
   const [activeAds, setActiveAds] = useState([]);
   const [expiredAds, setExpiredAds] = useState([]);
+  const [filterUsers, setfilterUsers] = useState(false);
   const [soldAds, setSoldAds] = useState([]);
 
   const [date, setDate] = useState({
@@ -65,7 +66,7 @@ const AdsManagementPage = () => {
     }
   }, 100);
 
-  const fetchUsers = async () => {
+  const fetchAds = async () => {
     try {
       setLoading(true);
       const startDate = formatDate(date.startDate);
@@ -115,14 +116,13 @@ const AdsManagementPage = () => {
       setLoading(false);
     }
   };
-  console.log("soldAds :>> ", soldAds);
 
   useEffect(() => {
     // if (!filterUsers) {
     //   return;
     // }
 
-    fetchUsers();
+    fetchAds();
     // eslint-disable-next-line
   }, [offset, filterAds]);
 
@@ -174,6 +174,17 @@ const AdsManagementPage = () => {
 
   useEffect(() => {}, [pendingAds.length, activeAds.length, expiredAds.length]);
 
+  const emptyAds = () => {
+    setPendingAds([]);
+    setActiveAds([]);
+    setExpiredAds([]);
+    setSoldAds([]);
+    setPendingCompleted(false);
+    setSoldCompleted(false);
+    setExpiredCompleted(false);
+    setActiveCompleted(false);
+  };
+
   return (
     <main className="bg-white py-4 px-2 px-sm-4">
       {/* Header */}
@@ -182,7 +193,14 @@ const AdsManagementPage = () => {
           <h5 className="mb-0 fw-semibold me-auto">Ads Management</h5>
           <div className="d-flex flex-wrap align-items-stretch gap-3">
             <div className="me-sm-auto flex-fill">
-              <DatePickerCard isPlaceholder />
+              <DatePickerCard
+                isPlaceholder
+                setfilterUsers={setfilterAds}
+                setDate={setDate}
+                date={date}
+                setOffset={setOffset}
+                setUsers={emptyAds}
+              />
             </div>
             <SearchField />
           </div>

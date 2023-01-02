@@ -1,6 +1,6 @@
 // libraries
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 import { numberDate } from "../../lib/helper/helper";
 
 // components
@@ -16,6 +16,10 @@ const UserManagementTable = ({
   date,
   setOffset,
   setUsers,
+  searchText,
+  setSearchText,
+  loading,
+  setLoading,
 }) => {
   const tableHeaderList = [
     { heading: "phone #" },
@@ -25,11 +29,17 @@ const UserManagementTable = ({
     { heading: "Actions" },
   ];
 
+  const handleChange = (value) => {
+    setSearchText(value);
+    setOffset(0);
+    setUsers([]);
+    setLoading(true);
+  };
   return (
     <div className="bg-white rounded shadow-sm">
       <div className="p-4 d-flex flex-wrap align-items-stretch gap-3">
         <div className="me-auto flex-fill flex-md-grow-0">
-          <SearchField />
+          <SearchField handleChange={handleChange} value={searchText} />
         </div>
         <div className="flex-fill flex-md-grow-0">
           <DatePickerCard
@@ -79,6 +89,15 @@ const UserManagementTable = ({
               </td>
             </tr>
           ))}
+          {loading ? (
+            <div className="w-100 text-center p-2">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <></>
+          )}
         </tbody>
       </Table>
     </div>
