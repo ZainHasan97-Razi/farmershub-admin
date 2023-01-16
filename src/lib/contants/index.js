@@ -7,8 +7,9 @@ export const apiRoutes = {
   changeAdStatus: "post/status",
   fetchVets: "vet",
   uploadFile: "common/upload",
+  featuredStatus: "post/feature/approved",
 };
 
 export const routes = {
-  HOME: "/dashboard",
+  HOME: "/",
 };

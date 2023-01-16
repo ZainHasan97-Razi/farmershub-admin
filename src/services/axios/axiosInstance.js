@@ -3,11 +3,7 @@ import axios from "axios";
 
 // constants
 import { apiBaseUrl, apiTimeOut } from "../../config/env";
-import {
-  clearAllLocalData,
-  getLocalData,
-  LOCAL_STORAGE_KEYS,
-} from "../../lib/helper/localStorage";
+import { clearAllLocalData } from "../../lib/helper/localStorage";
 import { notfiFail } from "../../lib/helper/toast";
 
 const axiosInstance = axios.create({
@@ -25,9 +21,9 @@ const NETWORK_CRASH = 502;
 // REQUEST INTERCEPTOR
 axiosInstance.interceptors.request.use(
   (request) => {
-    request.headers.Authorization = `Bearer ${
-      getLocalData(LOCAL_STORAGE_KEYS.authToken) || ""
-    }`;
+    // request.headers.Authorization = `Bearer ${
+    //   getLocalData(LOCAL_STORAGE_KEYS.authToken) || ""
+    // }`;
 
     return request;
   },

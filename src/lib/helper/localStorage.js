@@ -1,5 +1,6 @@
 const LOCAL_STORAGE_KEYS = {
   authToken: "accessToken",
+  login: "login",
 };
 
 const storeLocalData = (key, value) => {

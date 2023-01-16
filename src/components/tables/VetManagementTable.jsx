@@ -3,7 +3,6 @@ import debounce from "lodash.debounce";
 
 import { Table } from "react-bootstrap";
 import { formatDate } from "../../lib/helper/helper";
-import DatePickerCard from "../cards/DatePickerCard";
 import SearchField from "../inputs/SearchField";
 import AddVetModal from "../modals/AddVetModal";
 import DeleteModal from "../modals/DeleteModal";
@@ -27,8 +26,8 @@ const VetManagementTable = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [filterUsers, setfilterUsers] = useState(false);
-  const [date, setDate] = useState({
+  const [filterUsers] = useState(false);
+  const [date] = useState({
     startDate: new Date(),
     endDate: null,
     key: "selection",

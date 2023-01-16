@@ -10,6 +10,10 @@ import { apiRoutes, routes } from "../../lib/contants";
 import { notifySuccess } from "../../lib/helper/toast";
 import { intialStateLogin, validateLoginSchema } from "../../models/login";
 import { postRequest } from "../../services/axios/axiosMethods";
+import {
+  LOCAL_STORAGE_KEYS,
+  storeLocalData,
+} from "../../lib/helper/localStorage";
 
 // assets
 import { EmailIcon, LockIcon } from "../../components/icons/icons";
@@ -46,6 +50,7 @@ const LoginPage = () => {
       notifySuccess(response.message);
       actions.setSubmitting(false);
       response && setShowInputOtp(true);
+      if (response) storeLocalData(LOCAL_STORAGE_KEYS.login, true);
     } catch (error) {
       setShowInputOtp(false);
       actions.setSubmitting(false);
