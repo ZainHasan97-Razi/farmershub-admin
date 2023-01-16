@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AdsIcon,
   DashboardIcon,
@@ -11,8 +11,12 @@ import {
   VetIcon,
 } from "../components/icons/icons";
 import Logo from "../components/logos/Logo";
+import { apiRoutes } from "../lib/contants";
+import { storeLocalData } from "../lib/helper/localStorage";
+import { postRequest } from "../services/axios/axiosMethods";
 
 const Header = ({ onShow }) => {
+  const navigate = useNavigate();
   const links = [
     {
       icon: <DashboardIcon size="1.125rem" />,
@@ -41,6 +45,16 @@ const Header = ({ onShow }) => {
       to: "/community-management",
     },
   ];
+
+  const logOutAdmin = async () => {
+    try {
+      await postRequest(apiRoutes.logout);
+      navigate("/login");
+      storeLocalData("login", false);
+    } catch (error) {
+      storeLocalData("login", true);
+    }
+  };
 
   return (
     <header
@@ -100,7 +114,11 @@ const Header = ({ onShow }) => {
                 ))}
 
                 <Dropdown.Divider className="m-0" />
-                <Dropdown.Item className="py-2" as={NavLink} end to="/login">
+                <Dropdown.Item
+                  className="py-2"
+                  as={NavLink}
+                  onClick={logOutAdmin}
+                >
                   <span className="me-2">
                     <LogoutIcon size="1.125rem" />
                   </span>
@@ -158,7 +176,11 @@ const Header = ({ onShow }) => {
                   </Dropdown.Item>
                 ))}
                 <Dropdown.Divider className="m-0" />
-                <Dropdown.Item className="py-2" as={NavLink} end to="/">
+                <Dropdown.Item
+                  className="py-2"
+                  as={NavLink}
+                  onClick={logOutAdmin}
+                >
                   <span className="me-2">
                     <LogoutIcon size="1.125rem" />
                   </span>

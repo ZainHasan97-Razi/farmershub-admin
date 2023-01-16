@@ -8,6 +8,7 @@ export const apiRoutes = {
   fetchVets: "vet",
   uploadFile: "common/upload",
   featuredStatus: "post/feature/approved",
+  logout: "users/logout",
 };
 
 export const routes = {
