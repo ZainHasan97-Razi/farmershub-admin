@@ -6,26 +6,22 @@ import DatePickerCard from "../../components/cards/DatePickerCard";
 import { apiRoutes } from "../../lib/contants";
 import { onBottom } from "../../lib/helper/detectScroll";
 import { formatDate } from "../../lib/helper/helper";
-import { getRequest, putRequest } from "../../services/axios/axiosMethods";
+import { getRequest, postRequest } from "../../services/axios/axiosMethods";
 
-const AdsManagementPage = () => {
+const FeaturedAdsPage = () => {
   const limit = 20;
   const [offset, setOffset] = useState(0);
   const POST_STATUS = {
-    PENDING: "Pending",
-    APPROVED: "Active",
-    EXPIRED: "Deactivate",
-    SOLD: "Sold",
+    REQUESTED: "Requested",
+    APPROVED: "Approved",
   };
   const [statusUpdating, setStatusUpdating] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filterAds, setfilterAds] = useState(false);
   const [pendingCompleted, setPendingCompleted] = useState(false);
   const [activeCompleted, setActiveCompleted] = useState(false);
-  const [expiredCompleted, setExpiredCompleted] = useState(false);
-  const [soldCompleted, setSoldCompleted] = useState(false);
-  const [pendingAds, setPendingAds] = useState([]);
-  const [activeAds, setActiveAds] = useState([]);
+  const [pendingAds, setRequestedAds] = useState([]);
+  const [approvedAds, setApprovedAds] = useState([]);
   const [expiredAds, setExpiredAds] = useState([]);
   const [soldAds, setSoldAds] = useState([]);
 
@@ -72,43 +68,27 @@ const AdsManagementPage = () => {
 
       if (!pendingCompleted) {
         const response = await getRequest(
-          `${apiRoutes.fetchAds}?limit=${limit}&offset=${offset}&status=${
-            POST_STATUS.PENDING
+          `${
+            apiRoutes.fetchAds
+          }?limit=${limit}&status=Active&offset=${offset}&feature_status=${
+            POST_STATUS.REQUESTED
           }${filterAds ? `&minDate=${startDate}&maxDate=${maxDate}` : ""}`
         );
-        setPendingAds([...pendingAds, ...response.post]);
+        setRequestedAds([...pendingAds, ...response.post]);
         setPendingCompleted(response.length < limit);
         response && setLoading(false);
       }
       if (!activeCompleted) {
         const activeResponse = await getRequest(
-          `${apiRoutes.fetchAds}?limit=${limit}&offset=${offset}&status=${
+          `${
+            apiRoutes.fetchAds
+          }?limit=${limit}&offset=${offset}&feature_status=${
             POST_STATUS.APPROVED
           }${filterAds ? `&minDate=${startDate}&maxDate=${maxDate}` : ""}`
         );
-        setActiveAds([...activeAds, ...activeResponse.post]);
+        setApprovedAds([...approvedAds, ...activeResponse.post]);
         setActiveCompleted(activeResponse.length < limit);
         activeResponse && setLoading(false);
-      }
-      if (!expiredCompleted) {
-        const expiredResponse = await getRequest(
-          `${apiRoutes.fetchAds}?limit=${limit}&offset=${offset}&status=${
-            POST_STATUS.EXPIRED
-          }${filterAds ? `&minDate=${startDate}&maxDate=${maxDate}` : ""}`
-        );
-        setExpiredAds([...expiredAds, ...expiredResponse.post]);
-        setExpiredCompleted(expiredResponse.length < limit);
-        expiredResponse && setLoading(false);
-      }
-      if (!soldCompleted) {
-        const soldResponse = await getRequest(
-          `${apiRoutes.fetchAds}?limit=${limit}&offset=${offset}&status=${
-            POST_STATUS.SOLD
-          }${filterAds ? `&minDate=${startDate}&maxDate=${maxDate}` : ""}`
-        );
-        setSoldAds([...soldAds, ...soldResponse.post]);
-        setSoldCompleted(soldResponse.length < limit);
-        soldResponse && setLoading(false);
       }
     } catch (error) {
       setLoading(false);
@@ -116,35 +96,25 @@ const AdsManagementPage = () => {
   };
 
   useEffect(() => {
-    // if (!filterUsers) {
-    //   return;
-    // }
-
     fetchAds();
     // eslint-disable-next-line
   }, [offset, filterAds]);
 
   const changeAdStatus = async (currentStatus, cardInfo, newStatus) => {
     cardInfo.status = newStatus;
+    currentStatus = "Requested";
+    newStatus = "Approved";
     try {
       setStatusUpdating(true);
-      const response = await putRequest(apiRoutes.changeAdStatus, {
+      const response = await postRequest(apiRoutes.featuredStatus, {
         post_id: cardInfo?._id,
-        action_name: newStatus,
+        package_id: cardInfo.features_package_id,
       });
       if (response) {
         setStatusUpdating(false);
         switch (currentStatus) {
-          case POST_STATUS.PENDING:
-            setPendingAds((ads) =>
-              ads.filter((ad) => ad._id !== cardInfo?._id)
-            );
-            break;
-          case POST_STATUS.APPROVED:
-            setActiveAds((ads) => ads.filter((ad) => ad._id !== cardInfo?._id));
-            break;
-          case POST_STATUS.EXPIRED:
-            setExpiredAds((ads) =>
+          case POST_STATUS.REQUESTED:
+            setRequestedAds((ads) =>
               ads.filter((ad) => ad._id !== cardInfo?._id)
             );
             break;
@@ -153,10 +123,10 @@ const AdsManagementPage = () => {
         }
         switch (newStatus) {
           case POST_STATUS.PENDING:
-            setPendingAds((ads) => [...ads, cardInfo]);
+            setRequestedAds((ads) => [...ads, cardInfo]);
             break;
           case POST_STATUS.APPROVED:
-            setActiveAds((ads) => [...ads, cardInfo]);
+            setApprovedAds((ads) => [...ads, cardInfo]);
             break;
           case POST_STATUS.EXPIRED:
             setExpiredAds((ads) => [...ads, cardInfo]);
@@ -170,16 +140,18 @@ const AdsManagementPage = () => {
     }
   };
 
-  useEffect(() => {}, [pendingAds.length, activeAds.length, expiredAds.length]);
+  useEffect(() => {}, [
+    pendingAds.length,
+    approvedAds.length,
+    expiredAds.length,
+  ]);
 
   const emptyAds = () => {
-    setPendingAds([]);
-    setActiveAds([]);
+    setRequestedAds([]);
+    setApprovedAds([]);
     setExpiredAds([]);
     setSoldAds([]);
     setPendingCompleted(false);
-    setSoldCompleted(false);
-    setExpiredCompleted(false);
     setActiveCompleted(false);
   };
 
@@ -208,10 +180,10 @@ const AdsManagementPage = () => {
         <ul className="nav row row-cols-1 row-cols-sm-2 row-cols-xl-4 gy-4">
           <li>
             <AdsComponent
-              title="Pending Ads"
+              title="Requested Ads"
               gallery={gallery}
               list={pendingAds}
-              status={["Active", "Deactivate"]}
+              status={["Approved"]}
               changeAdStatus={changeAdStatus}
               statusUpdating={statusUpdating}
             />
@@ -220,27 +192,7 @@ const AdsManagementPage = () => {
             <AdsComponent
               title="Approved Ads"
               gallery={gallery}
-              list={activeAds}
-              status={["Pending", "Deactivate"]}
-              changeAdStatus={changeAdStatus}
-              statusUpdating={statusUpdating}
-            />
-          </li>
-          <li>
-            <AdsComponent
-              title="Expired Ads"
-              gallery={gallery}
-              list={expiredAds}
-              status={["Pending", "Active"]}
-              changeAdStatus={changeAdStatus}
-              statusUpdating={statusUpdating}
-            />
-          </li>
-          <li>
-            <AdsComponent
-              title="Sold Ads"
-              gallery={gallery}
-              list={soldAds}
+              list={approvedAds}
               status={[]}
               changeAdStatus={changeAdStatus}
               statusUpdating={statusUpdating}
@@ -252,4 +204,4 @@ const AdsManagementPage = () => {
   );
 };
 
-export default AdsManagementPage;
+export default FeaturedAdsPage;

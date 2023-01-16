@@ -1,30 +1,81 @@
-import { useLocation, useRoutes } from 'react-router-dom';
-import Layout from './layouts/Layout';
-import AdsManagementPage from './pages/ads-management/AdsManagementPage';
-import ErrorPage from './pages/auth/ErrorPage';
-import LoginPage from './pages/auth/LoginPage';
-import CommunityManagementPage from './pages/community-management/CommunityManagementPage';
-import DashboardPage from './pages/dashboard/DashboardPage';
-import UserManagementPage from './pages/user-management/UserManagementPage';
-import VetManagementPage from './pages/vet-management/VetManagementPage';
+import { useRoutes } from "react-router-dom";
+import Layout from "./layouts/Layout";
+import { getLocalData, LOCAL_STORAGE_KEYS } from "./lib/helper/localStorage";
+import AdsManagementPage from "./pages/ads-management/AdsManagementPage";
+import ErrorPage from "./pages/auth/ErrorPage";
+import LoginPage from "./pages/auth/LoginPage";
+import CommunityManagementPage from "./pages/community-management/CommunityManagementPage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
+import FeaturedAdsPage from "./pages/featured-ads/FeaturedAds";
+import UserManagementPage from "./pages/user-management/UserManagementPage";
+import VetManagementPage from "./pages/vet-management/VetManagementPage";
+import ProtectedRoute from "./Protected";
 
 const Routers = () => {
-  const location = useLocation();
-
-  const isLogout = location.pathname === '/';
+  const isLoggedIn = getLocalData(LOCAL_STORAGE_KEYS.login);
 
   const routes = [
     {
-      path: '/',
-      element: <Layout isLogout={isLogout} />,
+      path: "/",
+      element: <Layout isLogout={!isLoggedIn} />,
       children: [
-        { path: '/', element: <LoginPage /> },
-        { path: 'dashboard', element: <DashboardPage /> },
-        { path: 'user-management', element: <UserManagementPage /> },
-        { path: 'ads-management', element: <AdsManagementPage /> },
-        { path: 'vet-management', element: <VetManagementPage /> },
-        { path: 'community-management', element: <CommunityManagementPage /> },
-        { path: '*', element: <ErrorPage /> },
+        {
+          path: "/",
+          element: (
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "login",
+          element: (
+            <ProtectedRoute>
+              <LoginPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "user-management",
+          element: (
+            <ProtectedRoute>
+              <UserManagementPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "ads-management",
+          element: (
+            <ProtectedRoute>
+              <AdsManagementPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "vet-management",
+          element: (
+            <ProtectedRoute>
+              <VetManagementPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "community-management",
+          element: (
+            <ProtectedRoute>
+              <CommunityManagementPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "featured-ads",
+          element: (
+            <ProtectedRoute>
+              <FeaturedAdsPage />
+            </ProtectedRoute>
+          ),
+        },
+        { path: "*", element: <ErrorPage /> },
       ],
     },
   ];
