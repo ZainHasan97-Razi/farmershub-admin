@@ -2,6 +2,7 @@
 import React from "react";
 import { Table, Spinner } from "react-bootstrap";
 import { numberDate } from "../../lib/helper/helper";
+import { useNavigate } from "react-router-dom";
 
 // components
 import DatePickerCard from "../cards/DatePickerCard";
@@ -28,6 +29,8 @@ const UserManagementTable = ({
   loading,
   setLoading,
 }) => {
+  const navigate = useNavigate();
+
   const tableHeaderList = [
     { heading: "phone #" },
     { heading: "Name" },
@@ -84,6 +87,7 @@ const UserManagementTable = ({
                 {data?.name || "--"}
               </td>
               <td
+                onClick={() => navigate("/user-verification")}
                 className={`p-4 fw-semibold h6 mb-0 text-center text-nowrap ${
                   statusEnum[data?.identity_status || "Not Submitted"].color
                 } text-opacity-75 text-capitalize`}

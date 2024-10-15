@@ -10,6 +10,7 @@ import FeaturedAdsPage from "./pages/featured-ads/FeaturedAds";
 import UserManagementPage from "./pages/user-management/UserManagementPage";
 import VetManagementPage from "./pages/vet-management/VetManagementPage";
 import ProtectedRoute from "./Protected";
+import UserVerificationPage from "./pages/user-document-verification/UserVerificationPage";
 
 const Routers = () => {
   const isLoggedIn = getLocalData(LOCAL_STORAGE_KEYS.login);
@@ -72,6 +73,14 @@ const Routers = () => {
           element: (
             <ProtectedRoute>
               <FeaturedAdsPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "user-verification",
+          element: (
+            <ProtectedRoute>
+              <UserVerificationPage />
             </ProtectedRoute>
           ),
         },
