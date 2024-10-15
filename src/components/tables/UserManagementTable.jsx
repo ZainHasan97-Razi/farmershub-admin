@@ -9,6 +9,13 @@ import SearchField from "../inputs/SearchField";
 import DeleteModal from "../modals/DeleteModal";
 import ViewModal from "../modals/ViewModal";
 
+const statusEnum = {
+  "Not Submitted": { color: "text-dark", text: "Not Submitted" },
+  Pending: { color: "text-warning", text: "Pending" },
+  Verified: { color: "text-success", text: "Verified" },
+  Rejected: { color: "text-danger", text: "Not Verified" },
+};
+
 const UserManagementTable = ({
   users,
   setfilterUsers,
@@ -24,6 +31,7 @@ const UserManagementTable = ({
   const tableHeaderList = [
     { heading: "phone #" },
     { heading: "Name" },
+    { heading: "Verification Status" },
     { heading: "member since" },
     { heading: "ads posted" },
     { heading: "Actions" },
@@ -74,6 +82,13 @@ const UserManagementTable = ({
               </td>
               <td className="p-4 fw-semibold h6 mb-0 text-center text-nowrap text-dark text-opacity-75 text-capitalize">
                 {data?.name || "--"}
+              </td>
+              <td
+                className={`p-4 fw-semibold h6 mb-0 text-center text-nowrap ${
+                  statusEnum[data?.identity_status || "Not Submitted"].color
+                } text-opacity-75 text-capitalize`}
+              >
+                {data?.identity_status || "--"}
               </td>
               <td className="p-4 fw-semibold h6 mb-0 text-center text-nowrap text-dark text-opacity-75">
                 {numberDate(data?.createdAt) || "--"}
