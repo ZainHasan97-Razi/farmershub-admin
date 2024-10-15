@@ -14,7 +14,7 @@ const VerificarionDocumentCard = (props) => {
   return (
     <div className="col-md-4">
       {/* Card */}
-      <p>{props.title}</p>
+      <p style={{ fontWeight: 700, color: "rgba(0,0,0,0.7)" }}>{props.title}</p>
       <div
         className={props.imageSrc ? "image-card-preview" : "image-card-plain"}
         onClick={() => openModal(props.imageSrc)}
@@ -23,7 +23,7 @@ const VerificarionDocumentCard = (props) => {
           <img src={props.imageSrc} alt="Card" />
         ) : (
           <div style={{ marginTop: 100 }}>
-            <i className="bi bi-search icon search-icon"></i>
+            <i className="bi bi-image icon search-icon"></i>
           </div>
         )}
       </div>

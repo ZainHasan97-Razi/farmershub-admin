@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import "./UserVerificationPage.css"; // Import the CSS file
 import VerificarionDocumentCard from "../../components/cards/VerificationDocumentCard";
 
@@ -50,7 +50,7 @@ const UserVerificationPage = () => {
           />
         </Form.Group>
 
-        <div className="d-flex justify-content-between button-container">
+        <div className="d-flex flex-column justify-content-between button-container mb-5">
           <button /*disabled*/ className="verification-button">
             Mark this User as Verified
           </button>
