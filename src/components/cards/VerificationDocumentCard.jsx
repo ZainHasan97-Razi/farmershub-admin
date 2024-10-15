@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PreviewImageModal from "./PreviewImageModal";
-import { Card } from "react-bootstrap";
 import "./css/VerificationDocumentCard.css";
 
 const VerificarionDocumentCard = (props) => {
@@ -20,7 +19,11 @@ const VerificarionDocumentCard = (props) => {
         onClick={() => openModal(props.imageSrc)}
       >
         {props.imageSrc ? (
-          <img src={props.imageSrc} alt="Card" />
+          <img
+            src={props.imageSrc}
+            alt="Card"
+            className="img-verification-doc-card"
+          />
         ) : (
           <div style={{ marginTop: 100 }}>
             <i className="bi bi-image icon search-icon"></i>

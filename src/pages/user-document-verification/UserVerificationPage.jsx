@@ -16,11 +16,23 @@ const UserVerificationPage = () => {
         </p>
 
         <div className="row mb-4 icon-section">
-          <VerificarionDocumentCard title="Document (Front)" imageSrc={null} />
-          <VerificarionDocumentCard title="Document (Back)" imageSrc={null} />
+          <VerificarionDocumentCard
+            title="Document (Front)"
+            imageSrc={
+              "https://d2b5q6wa3juaya.cloudfront.net/uploads/78e98df1-b369-4049-acdd-5caa5cad60a0-pngtree-document-vector-icon-png-image_3876242.jpg"
+            }
+          />
+          <VerificarionDocumentCard
+            title="Document (Back)"
+            imageSrc={
+              "https://plus.unsplash.com/premium_photo-1661698763470-55da05629e50?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c21hbGwlMjBzaXplfGVufDB8fDB8fHww"
+            }
+          />
           <VerificarionDocumentCard
             title="User Selfie (Holding Document)"
-            imageSrc={null}
+            imageSrc={
+              "https://images.pexels.com/photos/1388069/pexels-photo-1388069.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1388069.jpg&fm=jpg"
+            }
           />
         </div>
 

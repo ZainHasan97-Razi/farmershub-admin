@@ -1,17 +1,23 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import "./css/PreviewImageModal.css";
 
 const PreviewImageModal = ({ show, handleClose, enlargedImageSrc, title }) => {
   return (
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      centered
+      // dialogClassName="modal-90w"
+    >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="text-center">
+      <Modal.Body as="div" className="img-verification-doc-modal">
         <img
           src={enlargedImageSrc}
           alt="Enlarged preview"
-          className="img-fluid"
+          className="img-verification-doc-modal"
         />
       </Modal.Body>
       <Modal.Footer>
