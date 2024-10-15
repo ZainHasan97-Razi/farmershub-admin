@@ -9,7 +9,8 @@ export const apiRoutes = {
   uploadFile: "common/upload",
   featuredStatus: "post/feature/approved",
   logout: "users/logout",
-  // userDocumentVerification: "users/user-verification",
+  fetchUserDocumentVerification: "users/single",
+  UserVerification: "users/status",
 };
 
 export const routes = {

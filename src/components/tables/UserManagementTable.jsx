@@ -87,7 +87,7 @@ const UserManagementTable = ({
                 {data?.name || "--"}
               </td>
               <td
-                onClick={() => navigate("/user-verification")}
+                onClick={() => navigate(`/user-verification/${data._id}`)}
                 className={`p-4 fw-semibold h6 mb-0 text-center text-nowrap ${
                   statusEnum[data?.identity_status || "Not Submitted"].color
                 } text-opacity-75 text-capitalize`}

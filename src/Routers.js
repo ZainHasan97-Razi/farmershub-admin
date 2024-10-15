@@ -77,7 +77,7 @@ const Routers = () => {
           ),
         },
         {
-          path: "user-verification",
+          path: "user-verification/:id",
           element: (
             <ProtectedRoute>
               <UserVerificationPage />

@@ -1,9 +1,64 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import "./UserVerificationPage.css"; // Import the CSS file
 import VerificarionDocumentCard from "../../components/cards/VerificationDocumentCard";
+import { da, th } from "date-fns/locale";
+import { getRequest, putRequest } from "../../services/axios/axiosMethods";
+import { apiRoutes } from "../../lib/contants";
+import { notifySuccess } from "../../lib/helper/toast";
+import { useParams } from 'react-router-dom';
 
 const UserVerificationPage = () => {
+  const [form, setForm] = React.useState({
+    identity_status: "Rejected",
+    rejection_reason: "",
+  });
+
+  const [loading, setLoading] = React.useState(false);
+  const { id } = useParams();
+  const [user, setUser] = React.useState(null);
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getRequest(`${apiRoutes.fetchUserDocumentVerification}/${id}`);
+      setUser(user);
+    };
+   fetchUser();
+  }, [id]);
+
+  const onSubmitApi = async (formData) => {
+  
+    const res = await putRequest(`${apiRoutes.UserVerification}/${id}`, formData);
+    if(res) {
+      notifySuccess("User Status Updated Successfully");
+    }
+  };
+  const onHandleVerification = async (e) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      // set Approved Status
+      form.identity_status = "Verified";
+      await onSubmitApi(form);
+      setLoading(false);
+
+    } catch(e) {
+      setLoading(false);
+      throw new Error(e.message || "failed to submit..");
+    }
+    // Handle form submission here
+  };
+
+  const onHandleRejection = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    form.identity_status = "Rejected";
+    await onSubmitApi(form);
+    
+    setLoading(false);
+  }
+
   return (
     <main className="verification-container py-4 px-2 px-sm-4">
       <section>
@@ -18,58 +73,57 @@ const UserVerificationPage = () => {
         <div className="row mb-4 icon-section">
           <VerificarionDocumentCard
             title="Document (Front)"
-            imageSrc={
-              "https://d2b5q6wa3juaya.cloudfront.net/uploads/78e98df1-b369-4049-acdd-5caa5cad60a0-pngtree-document-vector-icon-png-image_3876242.jpg"
-            }
+            imageSrc={user?.identity_front_image || ""}
           />
           <VerificarionDocumentCard
             title="Document (Back)"
-            imageSrc={
-              "https://plus.unsplash.com/premium_photo-1661698763470-55da05629e50?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c21hbGwlMjBzaXplfGVufDB8fDB8fHww"
-            }
+            imageSrc={ user?.identity_back_image || ""}
           />
           <VerificarionDocumentCard
             title="User Selfie (Holding Document)"
-            imageSrc={
-              "https://images.pexels.com/photos/1388069/pexels-photo-1388069.jpeg?cs=srgb&dl=pexels-wildlittlethingsphoto-1388069.jpg&fm=jpg"
-            }
+            imageSrc={ user?.selfie_holding_image || ""}
           />
         </div>
-
+      <Form>   
         <Form.Group controlId="adminFeedback" className="mb-4">
           <Form.Label>
             Add Your Admin Feedback Message Here (If You Are Not Approving This
             User)
           </Form.Label>
           <Form.Control
+            value={form.rejection_reason}
             as="textarea"
+            onChange={(e)=> setForm((form) => ({...form, rejection_reason: e.target.value}))}
             rows={3}
             placeholder="Enter your Admin Feedback Message here"
             className="feedback-textarea"
           />
         </Form.Group>
 
-        <Form.Group controlId="automatedResponse" className="mb-4">
+        {/* <Form.Group controlId="automatedResponse" className="mb-4">
           <Form.Label>
             Add Your Admin Feedback Message Here (If You Are Not Approving This
             User)
           </Form.Label>
           <Form.Control
             as="textarea"
+            value={form.approve_reason}
+            onChange={(e)=> setForm((form) => ({...form, approve_reason: e.target.value}))}
             rows={3}
             placeholder="These verification proofs are not sufficient; please try again later with more proofs."
             className="feedback-textarea"
           />
-        </Form.Group>
+        </Form.Group> */}
 
         <div className="d-flex flex-column justify-content-between button-container mb-5">
-          <button /*disabled*/ className="verification-button">
-            Mark this User as Verified
+          <button onClick={onHandleVerification} disabled={loading ? true: false} className="verification-button">
+            {loading ? "loading" :"Mark this User as Verified"}
           </button>
-          <button className="not-verification-button">
-            Mark this User as Not Verified
+          <button onClick={onHandleRejection} disabled={loading ? true: false} className="not-verification-button">
+            {loading? "loading": "Mark this User as Not Verified"}
           </button>
         </div>
+        </Form>
       </section>
     </main>
   );
