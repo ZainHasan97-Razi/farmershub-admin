@@ -8,11 +8,8 @@ const PreviewImageModal = ({ show, handleClose, enlargedImageSrc, title }) => {
       show={show}
       onHide={handleClose}
       centered
-      // dialogClassName="modal-90w"
+      dialogClassName="modal-dialog modal-xl"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
       <Modal.Body as="div" className="img-verification-doc-modal">
         <img
           src={enlargedImageSrc}
@@ -20,11 +17,6 @@ const PreviewImageModal = ({ show, handleClose, enlargedImageSrc, title }) => {
           className="img-verification-doc-modal"
         />
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };
