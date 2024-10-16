@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 const UserVerificationPage = () => {
   const [form, setForm] = React.useState({
-    identity_status: "Rejected",
+    identity_status: "",
     rejection_reason: "",
   });
 
@@ -49,13 +49,18 @@ const UserVerificationPage = () => {
   };
 
   const onHandleRejection = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    form.identity_status = "Rejected";
-    await onSubmitApi(form);
-    
-    setLoading(false);
+    try {
+      e.preventDefault();
+      setLoading(true);
+      
+      form.identity_status = "Not Verified";
+      await onSubmitApi(form);
+      
+      setLoading(false);
+    } catch(e) {
+      setLoading(false);
+      throw new Error(e.message || "failed to submit..");
+    }
   }
 
   return (
