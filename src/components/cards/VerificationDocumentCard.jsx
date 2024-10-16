@@ -18,7 +18,7 @@ const VerificarionDocumentCard = (props) => {
         className={props.imageSrc ? "image-card-preview" : "image-card-plain"}
         onClick={() => openModal(props.imageSrc)}
       >
-        {props.imageSrc ? (
+        {props.imageSrc && props.imageSrc != "" ? (
           <img
             src={props.imageSrc}
             alt="Card"
