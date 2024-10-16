@@ -14,7 +14,7 @@ const statusEnum = {
   "Not Submitted": { color: "text-dark", text: "Not Submitted" },
   Pending: { color: "text-warning", text: "Pending" },
   Verified: { color: "text-success", text: "Verified" },
-  Rejected: { color: "text-danger", text: "Not Verified" },
+  "Not Verified": { color: "text-danger", text: "Not Verified" },
 };
 
 const UserManagementTable = ({
