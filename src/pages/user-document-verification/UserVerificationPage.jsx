@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import "./UserVerificationPage.css"; // Import the CSS file
 import VerificarionDocumentCard from "../../components/cards/VerificationDocumentCard";
-import { da, th } from "date-fns/locale";
 import { getRequest, putRequest } from "../../services/axios/axiosMethods";
 import { apiRoutes } from "../../lib/contants";
 import { notifySuccess } from "../../lib/helper/toast";
