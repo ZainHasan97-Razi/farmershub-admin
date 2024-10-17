@@ -18,6 +18,7 @@ const UserManagementPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [status, setStatus] = useState("");
 
   const [filterUsers, setfilterUsers] = useState(false);
   const [date, setDate] = useState({
@@ -52,7 +53,7 @@ const UserManagementPage = () => {
           apiRoutes.fetchUser
         }?limit=${limit}&offset=${offset}&searchText=${searchText}${
           filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""
-        }`
+        }${status ? `&identity_status=${status}` : ""}`
       );
       setCompleted(response.length < limit);
       setUsers([...users, ...response.users]);
@@ -68,7 +69,8 @@ const UserManagementPage = () => {
     // }
     fetchUsers();
     // eslint-disable-next-line
-  }, [offset, filterUsers, date]);
+  }, [offset, filterUsers, date, status]);
+
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -99,6 +101,8 @@ const UserManagementPage = () => {
           setSearchText={setSearchText}
           loading={loading}
           setLoading={setLoading}
+          setStatus={setStatus}
+          status={status}
         />
       </section>
     </main>

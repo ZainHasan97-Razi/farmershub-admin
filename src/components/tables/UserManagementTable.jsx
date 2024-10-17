@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import React, { useCallback } from "react";
 import { Table, Spinner } from "react-bootstrap";
 import { numberDate } from "../../lib/helper/helper";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import DatePickerCard from "../cards/DatePickerCard";
 import SearchField from "../inputs/SearchField";
 import DeleteModal from "../modals/DeleteModal";
 import ViewModal from "../modals/ViewModal";
+import StatusFilters from "../inputs/StatusFilters";
 
 const statusEnum = {
   "Not Submitted": { color: "text-dark", text: "Not Submitted" },
@@ -28,6 +29,8 @@ const UserManagementTable = ({
   setSearchText,
   loading,
   setLoading,
+  setStatus,
+  status
 }) => {
   const navigate = useNavigate();
 
@@ -46,11 +49,22 @@ const UserManagementTable = ({
     setUsers([]);
     setLoading(true);
   };
+
+  const onChangeStatus = (value) => {
+    setStatus(value);
+    setOffset(0);
+    setUsers([]);
+    setLoading(true);
+  }
+
   return (
     <div className="bg-white rounded shadow-sm">
       <div className="p-4 d-flex flex-wrap align-items-stretch gap-3">
         <div className="me-auto flex-fill flex-md-grow-0">
           <SearchField handleChange={handleChange} value={searchText} />
+        </div>
+        <div className="me-auto flex-fill flex-md-grow-0">
+          <StatusFilters handleChange={onChangeStatus} selected={status} value={status} />
         </div>
         <div className="flex-fill flex-md-grow-0">
           <DatePickerCard
