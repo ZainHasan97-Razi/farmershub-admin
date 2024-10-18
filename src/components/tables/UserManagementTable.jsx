@@ -1,5 +1,5 @@
 // libraries
-import React, { useCallback } from "react";
+import React from "react";
 import { Table, Spinner } from "react-bootstrap";
 import { numberDate } from "../../lib/helper/helper";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import DatePickerCard from "../cards/DatePickerCard";
 import SearchField from "../inputs/SearchField";
 import DeleteModal from "../modals/DeleteModal";
 import ViewModal from "../modals/ViewModal";
-import StatusFilters from "../inputs/StatusFilters";
+import FilterDropdown from "../inputs/FilterDropDown";
 
 const statusEnum = {
   "Not Submitted": { color: "text-dark", text: "Not Submitted" },
@@ -29,8 +29,8 @@ const UserManagementTable = ({
   setSearchText,
   loading,
   setLoading,
+  status,
   setStatus,
-  status
 }) => {
   const navigate = useNavigate();
 
@@ -49,22 +49,12 @@ const UserManagementTable = ({
     setUsers([]);
     setLoading(true);
   };
-
-  const onChangeStatus = (value) => {
-    setStatus(value);
-    setOffset(0);
-    setUsers([]);
-    setLoading(true);
-  }
-
+  const filterOptions = ["All", "Pending", "Verified", "Not Verified"];
   return (
     <div className="bg-white rounded shadow-sm">
       <div className="p-4 d-flex flex-wrap align-items-stretch gap-3">
         <div className="me-auto flex-fill flex-md-grow-0">
           <SearchField handleChange={handleChange} value={searchText} />
-        </div>
-        <div className="me-auto flex-fill flex-md-grow-0">
-          <StatusFilters handleChange={onChangeStatus} selected={status} value={status} />
         </div>
         <div className="flex-fill flex-md-grow-0">
           <DatePickerCard
@@ -76,6 +66,15 @@ const UserManagementTable = ({
             setUsers={setUsers}
           />
         </div>
+
+        <div className="flex-fill flex-md-grow-0">
+          <FilterDropdown
+            options={filterOptions}
+            selectedValue={status}
+            onChange={(value) => setStatus(value === "All" ? "" : value)}
+          />
+        </div>
+
       </div>
 
       <Table responsive borderless hover>
@@ -102,9 +101,8 @@ const UserManagementTable = ({
               </td>
               <td
                 onClick={() => navigate(`/user-verification/${data._id}`)}
-                className={`p-4 fw-semibold h6 mb-0 text-center text-nowrap ${
-                  statusEnum[data?.identity_status || "Not Submitted"].color
-                } text-opacity-75 text-capitalize`}
+                className={`p-4 fw-semibold h6 mb-0 text-center text-nowrap ${statusEnum[data?.identity_status || "Not Submitted"].color
+                  } text-opacity-75 text-capitalize`}
               >
                 {data?.identity_status || "--"}
               </td>

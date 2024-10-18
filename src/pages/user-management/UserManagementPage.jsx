@@ -11,6 +11,13 @@ import { onBottom } from "../../lib/helper/detectScroll";
 import { getRequest } from "../../services/axios/axiosMethods";
 import { formatDate } from "../../lib/helper/helper";
 
+const STATUS_OPTIONS = [
+  { label: "All", value: "" },
+  { label: "Pending", value: "pending" },
+  { label: "Verified", value: "verified" },
+  { label: "Not Verified", value: "not_verified" },
+];
+
 const UserManagementPage = () => {
   const limit = 20;
   const [offset, setOffset] = useState(0);
@@ -18,7 +25,7 @@ const UserManagementPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(""); // New state for status
 
   const [filterUsers, setfilterUsers] = useState(false);
   const [date, setDate] = useState({
@@ -27,7 +34,6 @@ const UserManagementPage = () => {
     key: "selection",
   });
 
-  // increment offset at the end
   const scrollToEnd = () => {
     if (completed || loading) {
       return;
@@ -35,7 +41,6 @@ const UserManagementPage = () => {
     setOffset(offset + limit);
   };
 
-  // detect scroll at bottom
   window.onscroll = debounce(() => {
     if (onBottom()) {
       scrollToEnd();
@@ -49,14 +54,10 @@ const UserManagementPage = () => {
       const maxDate = formatDate(date.endDate);
 
       const response = await getRequest(
-        `${
-          apiRoutes.fetchUser
-        }?limit=${limit}&offset=${offset}&searchText=${searchText}${
-          filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""
-        }${status ? `&identity_status=${status}` : ""}`
+        `${apiRoutes.fetchUser}?limit=${limit}&offset=${offset}&searchText=${searchText}&identity_status=${status}${filterUsers ? `&minDate=${startDate}&maxDate=${maxDate}` : ""}`
       );
       setCompleted(response.length < limit);
-      setUsers([...users, ...response.users]);
+      setUsers([...response.users]);
       response && setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -64,19 +65,13 @@ const UserManagementPage = () => {
   };
 
   useEffect(() => {
-    // if (!filterUsers) {
-    //   return;
-    // }
     fetchUsers();
     // eslint-disable-next-line
-  }, [offset, filterUsers, date, status]);
-
+  }, [filterUsers, date, status]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       fetchUsers();
-
-      // Send Axios request here
     }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
@@ -101,8 +96,8 @@ const UserManagementPage = () => {
           setSearchText={setSearchText}
           loading={loading}
           setLoading={setLoading}
-          setStatus={setStatus}
-          status={status}
+          status={status} // Pass status to UserManagementTable
+          setStatus={setStatus} // Pass setStatus to UserManagementTable
         />
       </section>
     </main>

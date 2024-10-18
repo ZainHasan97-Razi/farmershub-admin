@@ -8,6 +8,7 @@ import PrimaryModal from "./PrimaryModal";
 
 const ViewModal = ({ data, ...props }) => {
   const [show, setShow] = useState("");
+
   return (
     <>
       <AppointmentsModal
